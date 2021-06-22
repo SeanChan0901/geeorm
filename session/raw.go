@@ -2,6 +2,7 @@ package session
 
 import (
 	"database/sql"
+	"github.com/SeanChan0901/gee-orm/clause"
 	"github.com/SeanChan0901/gee-orm/dialect"
 	"github.com/SeanChan0901/gee-orm/schema"
 	"strings"
@@ -13,6 +14,7 @@ type Session struct {
 	db       *sql.DB
 	dialect  dialect.Dialect
 	refTable *schema.Schema
+	clause   clause.Clause
 	sql      strings.Builder
 	sqlVars  []interface{}
 }
@@ -20,7 +22,7 @@ type Session struct {
 // New returns a new sql session
 func New(db *sql.DB, dialect dialect.Dialect) *Session {
 	return &Session{
-		db: db,
+		db:      db,
 		dialect: dialect,
 	}
 }
