@@ -6,7 +6,7 @@ var dialectsMap = map[string]Dialect{}
 
 type Dialect interface {
 	// DataTypeOf returns database data type from go data type.
-	// e.g reflect.Int in golang means "Integer" in sqlite3.
+	// e.g. reflect.Int in golang means "Integer" in sqlite3.
 	DataTypeOf(typ reflect.Value) string
 
 	// TableExistSQL returns a SQL sentence.

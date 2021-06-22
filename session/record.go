@@ -1,6 +1,7 @@
 package session
 
 import (
+	"errors"
 	"github.com/SeanChan0901/gee-orm/clause"
 	"reflect"
 )
@@ -53,4 +54,85 @@ func (s *Session) Find(values interface{}) error {
 		destSlice.Set(reflect.Append(destSlice, dest))
 	}
 	return rows.Close()
+}
+
+// Update set new data in record's field
+// support map[string] interface{}
+// also support kv list, e.g "Name", "Tom", "Age", 18, ...
+func (s *Session) Update(kv ...interface{}) (int64, error) {
+	m, ok := kv[0].(map[string]interface{})
+	// make a new kv
+	if !ok {
+		m = make(map[string]interface{})
+		for i := 0; i < len(kv); i += 2 {
+			m[kv[i].(string)] = kv[i+1]
+		}
+	}
+
+	s.clause.Set(clause.UPDATE, s.RefTable().Name, m)
+	sql, vars := s.clause.Build(clause.UPDATE, clause.WHERE)
+	result, err := s.Raw(sql, vars ...).Exec()
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
+}
+
+// Count returns the number of records matched the roles
+func (s *Session) Count() (int64, error) {
+	s.clause.Set(clause.COUNT, s.RefTable().Name)
+	sql, vars := s.clause.Build(clause.COUNT, clause.WHERE)
+	row := s.Raw(sql, vars...).QueryRow()
+	var tmp int64
+	if err := row.Scan(&tmp); err != nil {
+		return 0, err
+	}
+	return tmp, nil
+}
+
+// Limit adds limit condition to clause
+// e.g. s.Limit(3)
+func (s *Session) Limit(num int) *Session {
+	s.clause.Set(clause.LIMIT, num)
+	return s
+}
+
+func (s *Session) Delete() (int64, error) {
+	s.clause.Set(clause.DELETE, s.RefTable().Name)
+	sql, vars := s.clause.Build(clause.DELETE, clause.WHERE)
+	result, err := s.Raw(sql, vars...).Exec()
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
+}
+
+// Where adds limit condition to clause
+// e.g. s.Where("Name = ?", "Tom")
+func (s *Session) Where(desc string, args ...interface{}) *Session {
+	var vars[] interface{}
+	s.clause.Set(clause.WHERE, append(append(vars, desc), args...)...)
+	return s
+}
+
+// OrderBy adds order by condition to clause
+func (s *Session) OrderBy(desc string) *Session {
+	s.clause.Set(clause.ORDERBY, desc)
+	return s
+}
+
+// First fills the value with the first record(row) searched from db
+func (s *Session) First(value interface{}) error {
+	dest := reflect.Indirect(reflect.ValueOf(value))
+	destSlice := reflect.New(reflect.SliceOf(dest.Type())).Elem()
+	if err := s.Limit(1).Find(destSlice.Addr().Interface()); err != nil {
+		return err
+	}
+
+	if destSlice.Len() == 0 {
+		return errors.New("NOT FOUND")
+	}
+
+	dest.Set(destSlice.Index(0))
+	return nil
 }

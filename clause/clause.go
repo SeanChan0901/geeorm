@@ -16,6 +16,9 @@ const (
 	LIMIT
 	WHERE
 	ORDERBY
+	UPDATE
+	DELETE
+	COUNT
 )
 
 // Set build the SQL sentence and store in the clause instance
@@ -39,5 +42,11 @@ func (c *Clause) Build(orders ...Type) (string, []interface{}) {
 			vars = append(vars, c.sqlVars[order]...)
 		}
 	}
+	c.clear()
 	return  strings.Join(sqls, " "), vars
+}
+
+func (c *Clause) clear() {
+	c.sql = nil
+	c.sqlVars = nil
 }
