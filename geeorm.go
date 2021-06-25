@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/SeanChan0901/gee-orm/dialect"
-
 	"github.com/SeanChan0901/gee-orm/log"
 	"github.com/SeanChan0901/gee-orm/session"
 	_ "github.com/go-sql-driver/mysql"
@@ -110,6 +109,7 @@ func (engine *Engine) Migrate(value interface{}) error {
 		rows, _ := s.Raw(fmt.Sprintf("SELECT * FROM %s LIMIT 1", table.Name)).QueryRows()
 		columns, _ := rows.Columns()
 		_ = rows.Close()
+
 		addCols := difference(table.FieldNames, columns)
 		delCols := difference(columns, table.FieldNames)
 		log.Infof("added cols %v, deleted cols %v", addCols, delCols)
