@@ -1,20 +1,21 @@
 package session
 
 import (
-	"github.com/SeanChan0901/gee-orm/log"
 	"reflect"
+
+	"github.com/SeanChan0901/gee-orm/log"
 )
 
 // Hooks constants
 const (
-	BeforeQuery = "BeforeQuery"
-	AfterQuery = "AfterQuery"
+	BeforeQuery  = "BeforeQuery"
+	AfterQuery   = "AfterQuery"
 	BeforeUpdate = "BeforeUpdate"
-	AfterUpdate = "AfterUpdate"
+	AfterUpdate  = "AfterUpdate"
 	BeforeDelete = "BeforeDelete"
-	AfterDelete = "AfterDelete"
+	AfterDelete  = "AfterDelete"
 	BeforeInsert = "BeforeInsert"
-	AfterInsert = "AfterInsert"
+	AfterInsert  = "AfterInsert"
 )
 
 // CallMethod calls the registered hooks
@@ -34,6 +35,3 @@ func (s *Session) CallMethod(method string, value interface{}) {
 	}
 	return
 }
-
-
-

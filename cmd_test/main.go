@@ -1,12 +1,15 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 
 	geeorm "github.com/SeanChan0901/gee-orm"
 )
 
 func main() {
+	db, _ := sql.Open("sqlite3", "fee.db")
+	_, _ = db.Exec("")
 	engine, _ := geeorm.NewEngine("sqlite3", "gee.db")
 	defer engine.Close()
 

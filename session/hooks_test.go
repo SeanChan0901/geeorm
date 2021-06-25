@@ -1,13 +1,21 @@
 package session
 
 import (
-	"github.com/SeanChan0901/gee-orm/log"
 	"testing"
+
+	"github.com/SeanChan0901/gee-orm/log"
 )
 
 type Account struct {
 	ID       int `geeorm:"PRIMARY KEY"`
 	Password string
+}
+
+type Person struct {
+	name string
+	ID   uint64
+	sex  string
+	age  uint64
 }
 
 func (account *Account) BeforeInsert(s *Session) error {
@@ -23,7 +31,7 @@ func (account *Account) AfterQuery(s *Session) error {
 }
 
 func TestSession_CallMethod(t *testing.T) {
-	s := NewSession().Model(&Account{})
+	s := NewSqlite3Session().Model(&Account{})
 	_ = s.DropTable()
 	_ = s.CreateTable()
 	_, _ = s.Insert(&Account{1, "123456"}, &Account{2, "qwerty"})

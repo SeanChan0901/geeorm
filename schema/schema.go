@@ -1,9 +1,10 @@
 package schema
 
 import (
-	"github.com/SeanChan0901/gee-orm/dialect"
 	"go/ast"
 	"reflect"
+
+	"github.com/SeanChan0901/gee-orm/dialect"
 )
 
 // Field represents a column of database
@@ -36,10 +37,10 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 		fieldMap: make(map[string]*Field),
 	}
 
-	for i := 0; i < modelType.NumField(); i ++ {
+	for i := 0; i < modelType.NumField(); i++ {
 		p := modelType.Field(i)
 		if !p.Anonymous && ast.IsExported(p.Name) {
-			field := &Field {
+			field := &Field{
 				Name: p.Name,
 				Type: d.DataTypeOf(reflect.Indirect(reflect.New(p.Type))),
 			}

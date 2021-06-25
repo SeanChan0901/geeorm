@@ -2,10 +2,11 @@ package session
 
 import (
 	"database/sql"
+	"strings"
+
 	"github.com/SeanChan0901/gee-orm/clause"
 	"github.com/SeanChan0901/gee-orm/dialect"
 	"github.com/SeanChan0901/gee-orm/schema"
-	"strings"
 
 	"github.com/SeanChan0901/gee-orm/log"
 )
@@ -20,21 +21,25 @@ type Session struct {
 	sqlVars  []interface{}
 }
 
-
 // CommonDB is a minimal function set of db
 type CommonDB interface {
+	// Query returns one or more matched records(rows) searched from db
 	Query(query string, args ...interface{}) (*sql.Rows, error)
+
+	// QueryRow returns one matched record(row) searched from db
 	QueryRow(query string, args ...interface{}) *sql.Row
+
+	// Exec executes a SQL sentence
 	Exec(query string, args ...interface{}) (sql.Result, error)
 }
 
-var _ CommonDB = (*sql.DB)(nil)
-var _ CommonDB = (*sql.Tx)(nil)
+var _ CommonDB = (*sql.DB)(nil) // sql.db implements Query(), QueryRow() and Exec()
+var _ CommonDB = (*sql.Tx)(nil) // sql.tx implements Query(), QueryRow() and Exec()
 
 // DB returns tx if a tx begins. otherwise return *sql.DB
 func (s *Session) DB() CommonDB {
 	if s.tx != nil {
-		return  s.tx
+		return s.tx
 	}
 	return s.db
 }
@@ -51,8 +56,8 @@ func New(db *sql.DB, dialect dialect.Dialect) *Session {
 func (s *Session) Clear() {
 	s.sql.Reset()
 	s.sqlVars = nil
+	s.clause.Clear()
 }
-
 
 // Raw returns a session represent a raw sql sentence
 func (s *Session) Raw(sql string, values ...interface{}) *Session {

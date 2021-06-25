@@ -42,11 +42,11 @@ func (c *Clause) Build(orders ...Type) (string, []interface{}) {
 			vars = append(vars, c.sqlVars[order]...)
 		}
 	}
-	c.clear()
-	return  strings.Join(sqls, " "), vars
+
+	return strings.Join(sqls, " "), vars
 }
 
-func (c *Clause) clear() {
+func (c *Clause) Clear() {
 	c.sql = nil
 	c.sqlVars = nil
 }

@@ -2,10 +2,11 @@ package session
 
 import (
 	"fmt"
-	"github.com/SeanChan0901/gee-orm/log"
-	"github.com/SeanChan0901/gee-orm/schema"
 	"reflect"
 	"strings"
+
+	"github.com/SeanChan0901/gee-orm/log"
+	"github.com/SeanChan0901/gee-orm/schema"
 )
 
 // Model analyses the interface{} and set refTable of a db session.
@@ -48,6 +49,6 @@ func (s *Session) HasTable() bool {
 	sql, values := s.dialect.TableExistSQL(s.RefTable().Name)
 	row := s.Raw(sql, values...).QueryRow()
 	var tmp string
-	_ = row.Scan(&tmp)  // accept the table name
+	_ = row.Scan(&tmp) // accept the table name
 	return tmp == s.RefTable().Name
 }
