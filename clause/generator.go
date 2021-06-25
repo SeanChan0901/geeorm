@@ -22,10 +22,9 @@ func init() {
 	generators[COUNT] = _count
 }
 
-
 func genBindVars(num int) string {
 	var vars []string
-	for i := 0; i < num; i ++ {
+	for i := 0; i < num; i++ {
 		vars = append(vars, "?")
 	}
 
@@ -52,11 +51,11 @@ func _values(values ...interface{}) (string, []interface{}) {
 	sql.WriteString("VALUES ")
 	for i, value := range values {
 		v := value.([]interface{})
-		if bindStr  == "" {
+		if bindStr == "" {
 			bindStr = genBindVars(len(v))
 		}
 		sql.WriteString(fmt.Sprintf("(%v)", bindStr))
-		if i + 1 != len(values) {
+		if i+1 != len(values) {
 			sql.WriteString(", ")
 		}
 		vars = append(vars, v...)
@@ -97,7 +96,6 @@ func _orderBy(values ...interface{}) (string, []interface{}) {
 	return fmt.Sprintf("ORDER BY %s", values[0]), []interface{}{}
 }
 
-
 func _update(values ...interface{}) (string, []interface{}) {
 	// UPDATE $tableName SET $field
 	// e.g. sql, vars := _update("User", {"Age" : 30})
@@ -108,7 +106,7 @@ func _update(values ...interface{}) (string, []interface{}) {
 	var keys []string
 	var vars []interface{}
 	for k, v := range m {
-		keys = append(keys, k + " = ?")
+		keys = append(keys, k+" = ?")
 		vars = append(vars, v)
 	}
 

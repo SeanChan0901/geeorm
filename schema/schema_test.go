@@ -1,8 +1,9 @@
 package schema
 
 import (
-	"github.com/SeanChan0901/gee-orm/dialect"
 	"testing"
+
+	"github.com/SeanChan0901/gee-orm/dialect"
 )
 
 type User struct {
@@ -10,10 +11,13 @@ type User struct {
 	Age  int
 }
 
-var TestDial, _ = dialect.GetDialect("sqlite3")
+var (
+	Sqlite3Dial, _ = dialect.GetDialect("sqlite3")
+	MysqlDial, _   = dialect.GetDialect("mysql")
+)
 
 func TestParse(t *testing.T) {
-	schema := Parse(&User{}, TestDial)
+	schema := Parse(&User{}, Sqlite3Dial)
 
 	if schema.Name != "User" || len(schema.Fields) != 2 {
 		t.Fatal("failed to parse User struct")

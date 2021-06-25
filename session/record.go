@@ -2,8 +2,9 @@ package session
 
 import (
 	"errors"
-	"github.com/SeanChan0901/gee-orm/clause"
 	"reflect"
+
+	"github.com/SeanChan0901/gee-orm/clause"
 )
 
 // Insert insert one or more records(rows)  into db, and the record is represented by values.
@@ -76,7 +77,7 @@ func (s *Session) Update(kv ...interface{}) (int64, error) {
 
 	s.clause.Set(clause.UPDATE, s.RefTable().Name, m)
 	sql, vars := s.clause.Build(clause.UPDATE, clause.WHERE)
-	result, err := s.Raw(sql, vars ...).Exec()
+	result, err := s.Raw(sql, vars...).Exec()
 	if err != nil {
 		return 0, err
 	}
@@ -119,7 +120,7 @@ func (s *Session) Delete() (int64, error) {
 // Where adds limit condition to clause
 // e.g. s.Where("Name = ?", "Tom")
 func (s *Session) Where(desc string, args ...interface{}) *Session {
-	var vars[] interface{}
+	var vars []interface{}
 	s.clause.Set(clause.WHERE, append(append(vars, desc), args...)...)
 	return s
 }
