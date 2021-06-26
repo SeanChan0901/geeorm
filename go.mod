@@ -1,4 +1,4 @@
-module github.com/SeanChan0901/gee-orm
+module github.com/SeanChan0901/geeorm
 
 go 1.16
 
