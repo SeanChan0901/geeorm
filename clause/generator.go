@@ -16,6 +16,7 @@ func init() {
 	generators[SELECT] = _select
 	generators[LIMIT] = _limit
 	generators[WHERE] = _where
+	generators[GROUPBY] = _groupBy
 	generators[ORDERBY] = _orderBy
 	generators[UPDATE] = _update
 	generators[DELETE] = _delete
@@ -99,7 +100,7 @@ func _orderBy(values ...interface{}) (string, []interface{}) {
 func _update(values ...interface{}) (string, []interface{}) {
 	// UPDATE $tableName SET $field
 	// e.g. sql, vars := _update("User", {"Age" : 30})
-	// SQL: "UPDATE User SET Age"
+	// SQL: "UPDATE User SET Age = ?"
 	// vars: 30
 	tableName := values[0]
 	m := values[1].(map[string]interface{})
@@ -119,4 +120,9 @@ func _delete(values ...interface{}) (string, []interface{}) {
 
 func _count(values ...interface{}) (string, []interface{}) {
 	return _select(values[0], []string{"count(*)"})
+}
+
+func _groupBy(values ...interface{}) (string, []interface{}) {
+	fields := strings.Join(values[0].([]string), ",")
+	return fmt.Sprintf("GROUP BY %s", fields), []interface{}{}
 }

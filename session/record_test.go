@@ -43,7 +43,7 @@ func TestSqlite3Session_Insert(t *testing.T) {
 func TestSqlite3Session_Find(t *testing.T) {
 	s := testSqlite3RecordInit(t)
 	var users []User
-	if err := s.Find(&users); err != nil || len(users) != 2 {
+	if err := s.GroupBy("Age").Find(&users); err != nil || len(users) != 2 {
 		t.Fatal("failed to query all")
 	}
 }
