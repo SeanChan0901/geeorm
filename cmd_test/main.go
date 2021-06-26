@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	geeorm "github.com/SeanChan0901/gee-orm"
+	geeorm "github.com/SeanChan0901/geeorm"
 )
 
 func main() {
