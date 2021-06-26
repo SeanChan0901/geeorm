@@ -40,7 +40,7 @@ func (s *Session) Find(values interface{}) error {
 	table := s.Model(reflect.New(destType).Elem().Interface()).RefTable()
 
 	s.clause.Set(clause.SELECT, table.Name, table.FieldNames)
-	sql, vars := s.clause.Build(clause.SELECT, clause.WHERE, clause.ORDERBY, clause.LIMIT)
+	sql, vars := s.clause.Build(clause.SELECT, clause.WHERE, clause.GROUPBY, clause.ORDERBY, clause.LIMIT)
 	rows, err := s.Raw(sql, vars...).QueryRows()
 	if err != nil {
 		return err
@@ -128,6 +128,12 @@ func (s *Session) Where(desc string, args ...interface{}) *Session {
 // OrderBy adds order by condition to clause
 func (s *Session) OrderBy(desc string) *Session {
 	s.clause.Set(clause.ORDERBY, desc)
+	return s
+}
+
+// GroupBy adds group by condition to clause
+func (s *Session) GroupBy(groups ...string) *Session {
+	s.clause.Set(clause.GROUPBY, groups)
 	return s
 }
 
