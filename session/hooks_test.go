@@ -3,7 +3,7 @@ package session
 import (
 	"testing"
 
-	"github.com/SeanChan0901/gee-orm/log"
+	"github.com/SeanChan0901/geeorm/log"
 )
 
 type Account struct {
