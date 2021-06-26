@@ -1,6 +1,6 @@
 package session
 
-import "github.com/SeanChan0901/gee-orm/log"
+import "github.com/SeanChan0901/geeorm/log"
 
 func (s *Session) Begin() (err error) {
 	log.Info("transaction begin")

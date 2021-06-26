@@ -4,7 +4,7 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/SeanChan0901/gee-orm/clause"
+	"github.com/SeanChan0901/geeorm/clause"
 )
 
 // Insert insert one or more records(rows)  into db, and the record is represented by values.

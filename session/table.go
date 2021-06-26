@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/SeanChan0901/gee-orm/log"
-	"github.com/SeanChan0901/gee-orm/schema"
+	"github.com/SeanChan0901/geeorm/log"
+	"github.com/SeanChan0901/geeorm/schema"
 )
 
 // Model analyses the interface{} and set refTable of a db session.

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SeanChan0901/gee-orm/dialect"
-	"github.com/SeanChan0901/gee-orm/log"
-	"github.com/SeanChan0901/gee-orm/session"
+	"github.com/SeanChan0901/geeorm/dialect"
+	"github.com/SeanChan0901/geeorm/log"
+	"github.com/SeanChan0901/geeorm/session"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
 )

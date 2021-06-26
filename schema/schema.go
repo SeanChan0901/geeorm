@@ -4,7 +4,7 @@ import (
 	"go/ast"
 	"reflect"
 
-	"github.com/SeanChan0901/gee-orm/dialect"
+	"github.com/SeanChan0901/geeorm/dialect"
 )
 
 // Field represents a column of database

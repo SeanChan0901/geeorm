@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/SeanChan0901/gee-orm/session"
+	"github.com/SeanChan0901/geeorm/session"
 )
 
 type User struct {

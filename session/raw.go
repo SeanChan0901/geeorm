@@ -4,11 +4,11 @@ import (
 	"database/sql"
 	"strings"
 
-	"github.com/SeanChan0901/gee-orm/clause"
-	"github.com/SeanChan0901/gee-orm/dialect"
-	"github.com/SeanChan0901/gee-orm/schema"
+	"github.com/SeanChan0901/geeorm/clause"
+	"github.com/SeanChan0901/geeorm/dialect"
+	"github.com/SeanChan0901/geeorm/schema"
 
-	"github.com/SeanChan0901/gee-orm/log"
+	"github.com/SeanChan0901/geeorm/log"
 )
 
 type Session struct {

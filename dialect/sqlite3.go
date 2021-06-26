@@ -24,7 +24,6 @@ func (s *sqlite3) DataTypeOf(typ reflect.Value) string {
 	case reflect.Int64, reflect.Uint64:
 		return "bigint"
 	case reflect.Float32, reflect.Float64:
-		return "real"
 	case reflect.String:
 		return "text"
 	case reflect.Array, reflect.Slice:
