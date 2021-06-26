@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/SeanChan0901/gee-orm/dialect"
+	"github.com/SeanChan0901/geeorm/dialect"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
